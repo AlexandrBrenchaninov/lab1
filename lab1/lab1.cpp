@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <cmath>
 #include <vector>
+
 using namespace std;
 
 void printMatrix(vector<vector<double>> v) {//Вывод в консоль матрицы
@@ -12,12 +13,14 @@ void printMatrix(vector<vector<double>> v) {//Вывод в консоль ма�
 	}
 	cout << endl;
 }
+
 void printVector(vector<double> v) {//Вывод в консоль вектора 
 	for (int i = 0; i < v.size(); i++) {
 		cout << v[i] << endl;
 	}
 	cout << endl;
 }
+
 vector<double> gaussMethod(vector<vector<double>> v) {//Метод гаусса
 	int n = v.size();
 
@@ -86,14 +89,23 @@ vector<vector<double>> makeVectorToSolve(vector<vector<double>> vAB, vector<doub
 }
 
 double findDelta(vector<double> vX1, vector<double> vX2) {
-	double max = fabs((vX2[0] - vX1[0]) / vX1[0]);
-	for (int i = 0; i < vX1.size(); i++) {
-		double delta = fabs((vX2[i] - vX1[i]) / vX1[i]);
-		if (delta > max) {
-			max = delta;
+	double maxChisl = 0;
+	for (int i = 0; i < vX2.size(); i++) {
+		for (int j = 0; j < vX1.size(); j++) {
+			if ((vX2[i] - vX1[j]) > maxChisl) {
+				maxChisl = vX2[i] - vX1[j];
+			}
 		}
 	}
-	return max;
+
+	double maxZnam = 0;
+	for (int i = 0; i < vX1.size(); i++) {
+		if (vX1[i] > maxZnam) {
+			maxZnam = vX1[i];
+		}
+	}
+
+	return maxChisl / maxZnam;
 }
 
 int main() {
